@@ -10,5 +10,5 @@ mongoose.connect("mongodb+srv://dbNeha:dbNehashaw@atlascluster.vfz0br8.mongodb.n
 .catch(err => console.log(err))
 
 app.listen(process.env.PORT || 9999, function(){
-    console.log("express app running on port ' + (process.env.PORT || 9999");
-})
+    console.log(`express app running on port ` + (process.env.PORT || 9999))
+});
