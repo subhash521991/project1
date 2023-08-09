@@ -16,7 +16,7 @@ const authentication = async function(req,res,next){
 
 if (!decodedToken) {
 
-    return res.status(400).send({status:false, msg:"token is invalid"})
+    return res.status(400).send({status:false, msg:"Please Provide Valid Token"})
     
 }
 next();
