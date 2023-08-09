@@ -1,4 +1,5 @@
 const authorModel = require("../models/authorModel.js");
+const validator = require('validator');
 
 const createAuthor = async function (req, res) {
     try {
@@ -19,7 +20,14 @@ const createAuthor = async function (req, res) {
       if (!data.email) {
         return res.status(400).send({ status: false, msg: "email is required" });
       }
-  
+
+
+  const validEmail = validator.isEmail(data.email)
+    if (!validEmail) {
+      return res.status(400).send({status:false,msg:"email is not valid"})
+      
+    
+  }
       const duplicateEmail = await authorModel.findOne({ email: data.email });
   
       if (duplicateEmail) {

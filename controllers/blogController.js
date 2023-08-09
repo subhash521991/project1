@@ -12,7 +12,12 @@ const createBlog = async function (req, res) {
       if (!data.body) {
         return res.status(400).send({ status: false, msg: "Blog Content is required" });
       }
-      const valid_authorId = await authorModel.findOne({ _id: data.authorId });
+      const  authorId=data.authorId;
+      if(!authorId){
+        return res.status(400).send({status:false,msg:"authorId is required"})
+        }
+
+      const valid_authorId = await authorModel.findById(authorId)
       if (!valid_authorId) {
         return res.status(400).send({ status: false, msg: "Please Provide a Valid authorId" });
       }
@@ -23,8 +28,14 @@ const createBlog = async function (req, res) {
       if (!data.category) {
         return res.status(400).send({ status: false, msg: "Blog Category is required" });
       }
+      if (data.isPublished === true) {
+        
+        data.publishedAt = Date.now();
+        
+      }
      
       const createBlog = await blogModel.create(data);
+      
       res
         .status(201)
         .send({
@@ -32,6 +43,7 @@ const createBlog = async function (req, res) {
           message: "Blog created successfully",
           data: createBlog,
         });
+     
     } catch (error) {
       return res.status(500).send({ msg: error.message });
     }
