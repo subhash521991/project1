@@ -7,10 +7,10 @@ const authorSchema = new mongoose.Schema({
     lname: {type: String,required: true,trim: true},
     email: {type: String, required: true,unique: true,trim: true },
     password: {type: String,required: true,trim: true, minlength:[8, 'Must be atleast 8 characters'], maxlength:[15, 'Must be atmost 15 characters']  },
-    
+    isDeleted: {type:Boolean,default:false}, 
     
     
     }
     , { timestamps: true });
     
-    module.exports = mongoose.model('author', authorSchema);
+    module.exports = mongoose.model('authors', authorSchema);
